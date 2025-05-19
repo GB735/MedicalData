@@ -16,8 +16,8 @@ df['cholesterol'] = (df['cholesterol']>1).astype(int)
 # 4
 def draw_cat_plot():
     # 5
-    df_cat = None
-
+    df_cat = df['active','alco','cholesterol','gluc','overweight','smoke']['cardio' == 1]
+    sns.
 
     # 6
     df_cat = None
