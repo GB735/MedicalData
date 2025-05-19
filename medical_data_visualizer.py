@@ -16,22 +16,19 @@ df['cholesterol'] = (df['cholesterol']>1).astype(int)
 # 4
 def draw_cat_plot():
     # 5
-    df_cat = df[['active','alco','cholesterol','gluc','overweight','smoke','cardio']]
-    value_counts = df_cat.apply(lambda col: col.value_counts()).T.fillna(0)
-    value_counts.columns = ['0', '1']
-    value_counts = value_counts.reset_index().melt(id_vars='index', var_name='Value', value_name='Count')
-    value_counts.rename(columns={'index': 'Condition'}, inplace=True)
+    #df_cat = df[['active','alco','cholesterol','gluc','overweight','smoke','cardio']]
+    #value_counts = df_cat.apply(lambda col: col.value_counts()).T.fillna(0)
+    #value_counts.columns = ['0', '1']
+    #value_counts = value_counts.reset_index().melt(id_vars='index', var_name='Value', value_name='Count')
+    #value_counts.rename(columns={'index': 'Condition'}, inplace=True)
     #plt.title('Cardio = 0')
 
     # Plot
     #fig = sns.barplot(data=value_counts, x='Condition', y='Count', hue='Value')
     # 6
-    #df_cat = df[['active','alco','cholesterol','gluc','overweight','smoke']][df['cardio']==1]
-    #value_counts = df_cat.apply(lambda col: col.value_counts()).T.fillna(0)
-    #value_counts.columns = ['0', '1']
-    #value_counts = value_counts.reset_index().melt(id_vars='index', var_name='Value', value_name='Count')
-    #value_counts.rename(columns={'index': 'Condition'}, inplace=True)
-    #plt.title('Cardio = 1')
+    df_cat = df[['active','alco','cholesterol','gluc','overweight','smoke','cardio']]
+    df_melted = df_cat.melt(id_vars='cardio', var_name='Condition', value_name='Value')
+    counts = df_melted.groupby(['cardio', 'Condition', 'Value']).size().reset_index(name='total')
     
 
     # 7
@@ -39,7 +36,7 @@ def draw_cat_plot():
 
 
     # 8
-    fig = sns.catplot(data=value_counts,kind='bar', x='Condition', y='Count', hue='Value',col='cardio')
+    fig = sns.catplot(data=counts,kind='bar', x='Condition', y='total', hue='Value',col='cardio')
 
 
     # 9
