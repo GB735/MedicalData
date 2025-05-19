@@ -56,13 +56,13 @@ def draw_heat_map():
     corr = df_heat.corr()
     plt.clf()
     # 13
-    mask = corr.mask()
+    mask = mask = np.triu(np.ones_like(corr, dtype=bool))
 
 
 
     # 14
     #fig, ax = sns.heatmap(corr,annot=True)
-    fig = sns.heatmap(corr,annot=True,fmt=".2f")
+    fig = sns.heatmap(corr,mask=mask,annot=True,fmt=".2f")
     # 15
 
 
